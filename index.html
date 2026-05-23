@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кожен українець бажаний</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --blue: #1A3A5C;
+    --blue-mid: #2D5F8A;
+    --blue-light: #4A85B8;
+    --cream: #FAF8F3;
+    --cream-dark: #F0EBE0;
+    --text: #1C1C1C;
+    --text-muted: #5A5A5A;
+    --white: #FFFFFF;
+    --border: rgba(201,168,76,0.25);
+    --shadow: 0 4px 32px rgba(26,58,92,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,58,92,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.80);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.75rem;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.12);
+  }
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--blue) !important;
+    font-weight: 600 !important;
+    border-radius: 4px;
+    padding: 0.45rem 1rem !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold-light); border-radius: 2px; transition: 0.3s; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(160deg, rgba(26,58,92,0.92) 0%, rgba(26,58,92,0.75) 50%, rgba(26,58,92,0.85) 100%),
+      url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.10) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,168,76,0.18);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s ease 0.1s both;
+  }
+  .hero-title span { color: var(--gold-light); }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.78);
+    max-width: 580px; margin: 0 auto 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+  .hero-buttons {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--blue);
+    font-weight: 600; font-size: 0.9rem;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.45);
+    font-weight: 500; font-size: 0.9rem;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold-light); background: rgba(201,168,76,0.08); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 4rem;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--gold-light);
+  }
+  .hero-stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    color: var(--gold-dark);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; color: var(--blue);
+    line-height: 1.2; margin-bottom: 1.25rem;
+  }
+  .section-lead {
+    font-size: 1.05rem; color: var(--text-muted);
+    max-width: 620px; font-weight: 300;
+    margin-bottom: 3rem;
+  }
+  .divider {
+    width: 48px; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin: 1rem 0 2rem;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .about-image {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-image img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
+  .about-image::after {
+    content: '';
+    position: absolute; inset: 0;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    transform: translate(12px, 12px);
+    pointer-events: none;
+  }
+  .about-cards { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+  .about-card {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--cream); border-radius: 10px;
+    padding: 1.25rem; border-left: 3px solid var(--gold);
+  }
+  .about-card-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .about-card h4 { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--blue); }
+  .about-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+  /* ─── APPLY (ЗАЯВКИ) ─── */
+  #apply { background: var(--cream-dark); }
+  .apply-tabs {
+    display: flex; gap: 0; margin-bottom: 2.5rem;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .tab-btn {
+    flex: 1; padding: 1rem 1.5rem;
+    background: var(--white); border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active { background: var(--blue); color: var(--white); font-weight: 600; }
+  .tab-btn:hover:not(.active) { background: var(--cream); color: var(--blue); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeUp 0.4s ease; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.82rem; font-weight: 600; color: var(--blue); letter-spacing: 0.02em; }
+  input, select, textarea {
+    padding: 0.7rem 1rem;
+    border: 1.5px solid #D5CFC2;
+    border-radius: 7px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--blue-light); }
+  textarea { resize: vertical; min-height: 100px; }
+  .form-note {
+    font-size: 0.8rem; color: var(--text-muted);
+    margin-top: 0.5rem; display: flex; gap: 0.4rem; align-items: flex-start;
+  }
+  .form-panel {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+  }
+  .form-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--blue);
+    margin-bottom: 0.5rem;
+  }
+  .form-panel p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+  /* success */
+  .form-success {
+    display: none; text-align: center; padding: 3rem 1rem;
+  }
+  .form-success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .form-success h3 { font-family: 'Playfair Display', serif; color: var(--blue); font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .form-success p { color: var(--text-muted); }
+
+  /* ─── JOIN ─── */
+  #join { background: var(--blue); }
+  #join .section-title { color: var(--white); }
+  #join .section-tag { color: var(--gold-light); }
+  #join .section-lead { color: rgba(255,255,255,0.7); }
+  #join .divider { background: var(--gold); }
+  .join-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .join-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px; padding: 2rem 1.5rem;
+    transition: background 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .join-card:hover { background: rgba(255,255,255,0.10); transform: translateY(-2px); }
+  .join-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .join-card h4 { font-weight: 600; font-size: 1.05rem; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .join-card p { font-size: 0.88rem; color: rgba(255,255,255,0.68); }
+  .join-form { margin-top: 3rem; max-width: 520px; }
+  .join-form h3 { font-family:'Playfair Display',serif; color: var(--white); font-size: 1.4rem; margin-bottom: 1.5rem; }
+  .join-input-row { display: flex; gap: 0.75rem; }
+  .join-input-row input {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+  .join-input-row input::placeholder { color: rgba(255,255,255,0.45); }
+  .join-input-row input:focus { border-color: var(--gold-light); }
+
+  /* ─── NEWS ─── */
+  #news { background: var(--white); }
+  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem; }
+  .news-card {
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    background: var(--cream);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .news-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .news-card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: #D0C9B8; }
+  .news-card-body { padding: 1.5rem; }
+  .news-date { font-size: 0.75rem; font-weight: 600; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .news-card h4 { font-family:'Playfair Display',serif; font-size: 1.05rem; color: var(--blue); margin-bottom: 0.5rem; line-height: 1.35; }
+  .news-card p { font-size: 0.85rem; color: var(--text-muted); }
+  .news-card-link { display: inline-block; margin-top: 1rem; font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; border-bottom: 1.5px solid var(--gold); padding-bottom: 1px; }
+  .news-card-link:hover { color: var(--gold-dark); }
+
+  /* ─── SOCIAL ─── */
+  #social { background: var(--cream-dark); }
+  .social-grid { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .social-card {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--white);
+    border-radius: 12px; padding: 1.25rem 1.75rem;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    flex: 1; min-width: 200px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .social-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .social-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+  .social-facebook .social-icon { background: #E8F0FE; }
+  .social-instagram .social-icon { background: #FCE4EC; }
+  .social-telegram .social-icon { background: #E1F5FE; }
+  .social-youtube .social-icon { background: #FFEBEE; }
+  .social-tiktok .social-icon { background: #F3E5F5; }
+  .social-card-info h4 { font-weight: 600; font-size: 0.95rem; color: var(--blue); }
+  .social-card-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ─── LEGISLATION ─── */
+  #legislation { background: var(--white); }
+  .leg-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .leg-item {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    background: var(--cream); border-radius: 10px; padding: 1.5rem;
+    border-left: 4px solid var(--gold);
+    transition: box-shadow 0.2s;
+  }
+  .leg-item:hover { box-shadow: var(--shadow); }
+  .leg-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--gold);
+    line-height: 1; flex-shrink: 0; width: 2.5rem;
+  }
+  .leg-content h4 { font-weight: 600; font-size: 1rem; color: var(--blue); margin-bottom: 0.3rem; }
+  .leg-content p { font-size: 0.88rem; color: var(--text-muted); }
+  .leg-content a { font-size: 0.82rem; color: var(--blue-light); font-weight: 500; display: inline-block; margin-top: 0.5rem; }
+  .leg-tag {
+    display: inline-block; font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.65rem; border-radius: 100px;
+    background: rgba(201,168,76,0.15); color: var(--gold-dark);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--blue);
+    padding: 3.5rem 2rem 2rem;
+    color: rgba(255,255,255,0.7);
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand h3 { font-family:'Playfair Display',serif; color: var(--gold-light); font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .footer-brand p { font-size: 0.85rem; max-width: 280px; line-height: 1.7; }
+  .footer-col h5 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1rem; }
+  .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.78rem; }
+  .footer-heart { color: var(--gold-light); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--blue); padding: 1rem; gap: 0.25rem; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .about-grid, .join-cards, .news-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .apply-tabs { flex-direction: column; }
+    .social-card { min-width: 140px; }
+    .about-image::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">🇺🇦 Кожен Українець Бажаний</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Про проект</a></li>
+      <li><a href="#apply">Залишити заявку</a></li>
+      <li><a href="#join">Приєднатися</a></li>
+      <li><a href="#news">Новини</a></li>
+      <li><a href="#social">Соцмережі</a></li>
+      <li><a href="#legislation">Законодавство</a></li>
+      <li><a href="#apply" class="nav-cta">Подати заявку</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div>
+    <div class="hero-badge">🕊️ Всеукраїнський проект</div>
+    <h1 class="hero-title">Кожен українець<br><span>бажаний</span></h1>
+    <p class="hero-sub">Разом ми зберігаємо найцінніше — кожне маленьке життя. Проект об'єднує серця, родини і надію на краще майбутнє для дітей України.</p>
+    <div class="hero-buttons">
+      <a href="#apply" class="btn-primary">Залишити заявку</a>
+      <a href="#about" class="btn-outline">Дізнатись більше</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">1 200+</div>
+        <div class="hero-stat-label">Дітей знайшли сім'ю</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">340+</div>
+        <div class="hero-stat-label">Партнерів проекту</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">25</div>
+        <div class="hero-stat-label">Областей охоплено</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80" alt="Щасливі діти" loading="lazy">
+      </div>
+      <div>
+        <span class="section-tag">Про проект</span>
+        <h2 class="section-title">Місія, яка рятує<br>маленькі долі</h2>
+        <div class="divider"></div>
+        <p class="section-lead">«Кожен українець бажаний» — це загальнонаціональна ініціатива, спрямована на підтримку усиновлення, збереження дитячих життів і формування культури відповідальності в суспільстві.</p>
+        <div class="about-cards">
+          <div class="about-card">
+            <div class="about-card-icon">💛</div>
+            <div>
+              <h4>Усиновлення немовлят</h4>
+              <p>Допомагаємо майбутнім батькам пройти шлях від першого бажання до радісної зустрічі з дитиною.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">💙</div>
+            <div>
+              <h4>Дарування життя</h4>
+              <p>Підтримуємо жінок, які вирішили подарувати своїй дитині шанс на щасливе майбутнє замість іншого вибору.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">🇺🇦</div>
+            <div>
+              <h4>Законодавчі зміни</h4>
+              <p>Ініціюємо та підтримуємо зміни в законодавстві, які спрощують усиновлення в Україні.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply">
+  <div class="container">
+    <span class="section-tag">Залишити заявку</span>
+    <h2 class="section-title">Зробіть перший крок</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Оберіть форму, яка відповідає вашій ситуації. Ми зв'яжемось із вами протягом 2 робочих днів.</p>
+
+    <div class="apply-tabs">
+      <button class="tab-btn active" onclick="switchTab('adopt')">👶 Хочу усиновити немовля</button>
+      <button class="tab-btn" onclick="switchTab('donate')">🌱 Не вб'ю а подарую життя</button>
+    </div>
+
+    <!-- TAB: Adopt -->
+    <div id="tab-adopt" class="tab-panel active">
+      <div class="form-panel">
+        <h3>Хочу усиновити немовля</h3>
+        <p>Заповніть форму нижче, і наш координатор зв'яжеться з вами для консультації та пояснення подальших кроків.</p>
+        <form onsubmit="submitForm(event,'adopt')">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Ім'я та по батькові *</label>
+              <input type="text" placeholder="Наприклад, Марія Іванівна" required>
+            </div>
+            <div class="form-group">
+              <label>Прізвище *</label>
+              <input type="text" placeholder="Ваше прізвище" required>
+            </div>
+            <div class="form-group">
+              <label>Телефон *</label>
+              <input type="tel" placeholder="+38 0__ ___ __ __" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label>Область проживання *</label>
+              <select required>
+                <option value="">— Оберіть —</option>
+                <option>Вінницька</option><option>Волинська</option><option>Дніпропетровська</option>
+                <option>Донецька</option><option>Житомирська</option><option>Закарпатська</option>
+                <option>Запорізька</option><option>Івано-Франківська</option><option>Київська</option>
+                <option>Кіровоградська</option><option>Луганська</option><option>Львівська</option>
+                <option>Миколаївська</option><option>Одеська</option><option>Полтавська</option>
+                <option>Рівненська</option><option>Сумська</option><option>Тернопільська</option>
+                <option>Харківська</option><option>Херсонська</option><option>Хмельницька</option>
+                <option>Черкаська</option><option>Чернівецька</option><option>Чернігівська</option>
+                <option>м. Київ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Сімейний стан *</label>
+              <select required>
+                <option value="">— Оберіть —</option>
+                <option>Одружені</option>
+                <option>Незаміжня/Неодружений</option>
+                <option>Вдова/Вдівець</option>
+                <option>Розлучені</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Ваші побажання щодо дитини</label>
+              <textarea placeholder="Вік, стать, особливі обставини — поділіться, що важливо для вас..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label>
+                <input type="checkbox" required style="width:auto;margin-right:8px;">
+                Я погоджуюсь на обробку персональних даних відповідно до чинного законодавства України
+              </label>
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="btn-primary">Надіслати заявку →</button>
+          <p class="form-note">ℹ️ Усі дані зберігаються конфіденційно і не передаються третім особам.</p>
+        </form>
+        <div class="form-success" id="success-adopt">
+          <div class="form-success-icon">💛</div>
+          <h3>Дякуємо за вашу заявку!</h3>
+          <p>Наш координатор зв'яжеться з вами протягом 2 робочих днів. Разом ми зробимо перший крок до нової сім'ї.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Donate Life -->
+    <div id="tab-donate" class="tab-panel">
+      <div class="form-panel">
+        <h3>Не вб'ю — подарую життя</h3>
+        <p>Ми поруч. Ваш вибір — це мужність і любов. Залиште контакти, і ми зв'яжемось конфіденційно, щоб підтримати вас.</p>
+        <form onsubmit="submitForm(event,'donate')">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Ім'я (або псевдонім) *</label>
+              <input type="text" placeholder="Як до вас звертатись" required>
+            </div>
+            <div class="form-group">
+              <label>Зручний спосіб зв'язку *</label>
+              <select required>
+                <option value="">— Оберіть —</option>
+                <option>Телефон/SMS</option>
+                <option>Telegram</option>
+                <option>Viber</option>
+                <option>Email</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Контакт *</label>
+              <input type="text" placeholder="Номер телефону, Telegram або email" required>
+            </div>
+            <div class="form-group">
+              <label>Область</label>
+              <select>
+                <option value="">— Оберіть (необов'язково) —</option>
+                <option>Івано-Франківська</option>
+                <option>Львівська</option>
+                <option>Київська</option>
+                <option>Інша</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Зручний час для зв'язку</label>
+              <select>
+                <option>Будь-коли</option>
+                <option>Вранці (9–12)</option>
+                <option>Вдень (12–17)</option>
+                <option>Ввечері (17–21)</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Ваше повідомлення (необов'язково)</label>
+              <textarea placeholder="Розкажіть нам, як ми можемо допомогти. Вся інформація суворо конфіденційна..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label>
+                <input type="checkbox" required style="width:auto;margin-right:8px;">
+                Я погоджуюсь на конфіденційну обробку моїх даних
+              </label>
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="btn-primary">Написати нам →</button>
+          <p class="form-note">🔒 Ви в безпеці. Ваші дані не розголошуються. Ми тут, щоб допомогти — без засуджень.</p>
+        </form>
+        <div class="form-success" id="success-donate">
+          <div class="form-success-icon">💙</div>
+          <h3>Ми отримали ваше звернення</h3>
+          <p>Ви зробили сміливий крок. Координатор зв'яжеться з вами в зазначений час абсолютно конфіденційно.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join">
+  <div class="container">
+    <span class="section-tag">Приєднатися до проекту</span>
+    <h2 class="section-title">Станьте частиною<br>змін</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Кожна роль важлива. Разом ми змінюємо Україну на краще — для кожної дитини.</p>
+
+    <div class="join-cards">
+      <div class="join-card">
+        <div class="join-card-icon">🏥</div>
+        <h4>Медичні установи</h4>
+        <p>Пологові будинки, клініки та центри здоров'я можуть стати нашими партнерами й отримати інформаційні матеріали для пацієнток.</p>
+      </div>
+      <div class="join-card">
+        <div class="join-card-icon">⚖️</div>
+        <h4>Юристи та нотаріуси</h4>
+        <p>Фахівці у сфері права допомагають родинам пройти юридичний шлях усиновлення з мінімальними труднощами.</p>
+      </div>
+      <div class="join-card">
+        <div class="join-card-icon">🧠</div>
+        <h4>Психологи</h4>
+        <p>Волонтери-психологи консультують як майбутніх батьків, так і жінок у складних ситуаціях безоплатно.</p>
+      </div>
+      <div class="join-card">
+        <div class="join-card-icon">📣</div>
+        <h4>Медіа та блогери</h4>
+        <p>Поширюйте важливі меседжі та допоможіть нам охопити більше людей по всій Україні.</p>
+      </div>
+      <div class="join-card">
+        <div class="join-card-icon">🤝</div>
+        <h4>Волонтери</h4>
+        <p>Допомога з організацією заходів, координацією заявок і підтримкою сімей у регіонах.</p>
+      </div>
+      <div class="join-card">
+        <div class="join-card-icon">💼</div>
+        <h4>Бізнес та фонди</h4>
+        <p>Корпоративне партнерство та спонсорство допомагають нам масштабувати проект і рятувати більше доль.</p>
+      </div>
+    </div>
+
+    <div class="join-form">
+      <h3>Залишити контакт для партнерства</h3>
+      <form onsubmit="submitJoin(event)" style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="join-input-row">
+          <input type="text" placeholder="Ваше ім'я" required>
+          <input type="tel" placeholder="Телефон / Telegram" required>
+        </div>
+        <select style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);" required>
+          <option value="">— Моя роль —</option>
+          <option>Медична установа</option>
+          <option>Юрист / нотаріус</option>
+          <option>Психолог</option>
+          <option>Медіа / блогер</option>
+          <option>Волонтер</option>
+          <option>Бізнес / фонд</option>
+          <option>Інше</option>
+        </select>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;" id="joinBtn">Надіслати →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="container">
+    <span class="section-tag">Новини проекту</span>
+    <h2 class="section-title">Що відбувається</h2>
+    <div class="divider"></div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#C9A84C22,#1A3A5C33);display:flex;align-items:center;justify-content:center;font-size:3rem;">👶</div>
+        <div class="news-card-body">
+          <div class="news-date">15 травня 2025</div>
+          <h4>Тисячна дитина знайшла свою родину</h4>
+          <p>Символічна подія: 1000-й малюк через нашу платформу знайшов люблячих батьків у Львівській області.</p>
+          <a href="#" class="news-card-link">Читати далі →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#1A3A5C22,#C9A84C33);display:flex;align-items:center;justify-content:center;font-size:3rem;">⚖️</div>
+        <div class="news-card-body">
+          <div class="news-date">3 квітня 2025</div>
+          <h4>Верховна Рада розглянула наш законопроект</h4>
+          <p>Комітет з прав людини підтримав ініціативу спрощення процедури усиновлення для українських сімей.</p>
+          <a href="#" class="news-card-link">Читати далі →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img" style="background:linear-gradient(135deg,#4A85B822,#C9A84C22);display:flex;align-items:center;justify-content:center;font-size:3rem;">🎗️</div>
+        <div class="news-card-body">
+          <div class="news-date">20 березня 2025</div>
+          <h4>Всеукраїнська акція «Серце матері»</h4>
+          <p>Понад 50 міст долучились до акції на підтримку жінок у складних ситуаціях. Понад 2000 учасників.</p>
+          <a href="#" class="news-card-link">Читати далі →</a>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <a href="#" class="btn-primary">Всі новини →</a>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section id="social">
+  <div class="container">
+    <span class="section-tag">Соціальні мережі</span>
+    <h2 class="section-title">Ми в соцмережах</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Слідкуйте за нашими оновленнями, діліться матеріалами і допомагайте поширювати важливу місію.</p>
+    <div class="social-grid">
+      <a href="https://facebook.com" target="_blank" class="social-card social-facebook">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></svg>
+        </div>
+        <div class="social-card-info">
+          <h4>Facebook</h4>
+          <p>/kozhen.ukrainets</p>
+        </div>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-card social-instagram">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="url(#ig)"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#FD5949"/><stop offset="50%" style="stop-color:#D6249F"/><stop offset="100%" style="stop-color:#285AEB"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="social-card-info">
+          <h4>Instagram</h4>
+          <p>@kozhen_ukrainets</p>
+        </div>
+      </a>
+      <a href="https://t.me" target="_blank" class="social-card social-telegram">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#229ED9"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </div>
+        <div class="social-card-info">
+          <h4>Telegram</h4>
+          <p>t.me/kozhen_ua</p>
+        </div>
+      </a>
+      <a href="https://youtube.com" target="_blank" class="social-card social-youtube">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </div>
+        <div class="social-card-info">
+          <h4>YouTube</h4>
+          <p>Kozhen Ukrainets</p>
+        </div>
+      </a>
+      <a href="https://tiktok.com" target="_blank" class="social-card social-tiktok">
+        <div class="social-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </div>
+        <div class="social-card-info">
+          <h4>TikTok</h4>
+          <p>@kozhen.ua</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LEGISLATION -->
+<section id="legislation">
+  <div class="container">
+    <span class="section-tag">Законодавчі ініціативи</span>
+    <h2 class="section-title">Змінюємо закони<br>заради дітей</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Ми активно працюємо над реформами, які зроблять усиновлення в Україні простішим, швидшим і більш прозорим.</p>
+    <div class="leg-list">
+      <div class="leg-item">
+        <div class="leg-num">01</div>
+        <div class="leg-content">
+          <span class="leg-tag">На розгляді</span>
+          <h4>Законопроект №1234 — Спрощення процедури усиновлення</h4>
+          <p>Пропонується скоротити строки розгляду справ про усиновлення до 30 днів, зменшити кількість обов'язкових документів та дозволити електронне подання заяв через систему «Дія».</p>
+          <a href="#">📄 Переглянути повний текст законопроекту →</a>
+        </div>
+      </div>
+      <div class="leg-item">
+        <div class="leg-num">02</div>
+        <div class="leg-content">
+          <span class="leg-tag">Підтримано комітетом</span>
+          <h4>Законопроект №5678 — Підтримка жінок у складних ситуаціях</h4>
+          <p>Ініціатива передбачає безоплатну психологічну та юридичну допомогу для жінок, які розглядають альтернативи небажаній вагітності, а також гарантії анонімності при зверненні.</p>
+          <a href="#">📄 Переглянути повний текст законопроекту →</a>
+        </div>
+      </div>
+      <div class="leg-item">
+        <div class="leg-num">03</div>
+        <div class="leg-content">
+          <span class="leg-tag">Підписано</span>
+          <h4>Закон №9101 — Державне фінансування центрів підтримки</h4>
+          <p>Ухвалений закон забезпечує фінансування регіональних центрів підтримки усиновлення та надання допомоги прийомним сім'ям у всіх 25 областях України.</p>
+          <a href="#">📄 Переглянути офіційний текст закону →</a>
+        </div>
+      </div>
+      <div class="leg-item">
+        <div class="leg-num">04</div>
+        <div class="leg-content">
+          <span class="leg-tag">Готується</span>
+          <h4>Ініціатива — Реформа Baby Box</h4>
+          <p>Розробляємо пропозиції щодо розширення мережі «вікон життя» та удосконалення правового регулювання анонімного залишення немовлят з гарантією їх безпеки та подальшого влаштування.</p>
+          <a href="#">📄 Взяти участь у громадському обговоренні →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>🇺🇦 Кожен Українець Бажаний</h3>
+        <p>Всеукраїнська ініціатива на захист кожного дитячого життя. Ми поєднуємо серця, родини і надію на краще майбутнє.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Навігація</h5>
+        <a href="#about">Про проект</a>
+        <a href="#apply">Залишити заявку</a>
+        <a href="#join">Приєднатися</a>
+        <a href="#news">Новини</a>
+        <a href="#legislation">Законодавство</a>
+      </div>
+      <div class="footer-col">
+        <h5>Контакти</h5>
+        <a href="mailto:info@kozhen-ua.org">info@kozhen-ua.org</a>
+        <a href="tel:+380800000000">0800 000 000 (безкоштовно)</a>
+        <a href="#">Конфіденційність</a>
+        <a href="#">Умови використання</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Кожен Українець Бажаний. Всі права захищені.</p>
+      <p>Зроблено з <span class="footer-heart">💛💙</span> для України</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (tab === 'adopt' && i===0)||(tab==='donate'&&i===1)));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function submitForm(e, type) {
+  e.preventDefault();
+  const form = e.target;
+  form.style.display = 'none';
+  document.getElementById('success-' + type).style.display = 'block';
+}
+
+function submitJoin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('joinBtn');
+  btn.textContent = '✓ Заявку надіслано!';
+  btn.style.background = '#2D7A3A';
+  btn.disabled = true;
+}
+
+// Smooth active nav link
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--gold-light)' : '';
+  });
+});
+</script>
+</body>
+</html>
